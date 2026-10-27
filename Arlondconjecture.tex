@@ -1,0 +1,333 @@
+
+\documentclass[11pt,a4paper]{article}
+
+%------------------------------------------------
+% Encoding and language
+%------------------------------------------------
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+
+%------------------------------------------------
+% Page layout
+%------------------------------------------------
+\usepackage[a4paper,margin=2.8cm]{geometry}
+\usepackage{microtype}
+\usepackage{setspace}
+\setstretch{1.1}
+
+%------------------------------------------------
+% Mathematics
+%------------------------------------------------
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{mathtools}
+\usepackage{mathrsfs}
+\usepackage{bm}
+\usepackage{enumitem}
+
+%------------------------------------------------
+% Hyperlinks
+%------------------------------------------------
+\usepackage[colorlinks=true,
+linkcolor=blue,
+citecolor=blue,
+urlcolor=blue]{hyperref}
+
+%------------------------------------------------
+% Theorem environments
+%------------------------------------------------
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+%------------------------------------------------
+% Mathematical notation
+%------------------------------------------------
+
+% Number systems
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+
+% Symplectic geometry
+\newcommand{\M}{M}
+\newcommand{\Ham}{\operatorname{Ham}}
+\newcommand{\Symp}{\operatorname{Symp}}
+\newcommand{\Diff}{\operatorname{Diff}}
+\newcommand{\id}{\operatorname{id}}
+\newcommand{\Fix}{\operatorname{Fix}}
+\newcommand{\Crit}{\operatorname{Crit}}
+\newcommand{\CritMorse}{\operatorname{Crit}_{\mathrm{Morse}}}
+\newcommand{\supp}{\operatorname{supp}}
+
+% Differential operators and sets
+\newcommand{\d}{\mathrm{d}}
+\newcommand{\Lie}{\mathcal{L}}
+\newcommand{\grad}{\nabla}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\Om}{\Omega}
+
+%------------------------------------------------
+% Title information
+%------------------------------------------------
+\title{\textbf{Arnold's Conjecture on Fixed Points of
+		Hamiltonian Diffeomorphisms}}
+
+\author{}
+\date{}
+
+%================================================
+% Document
+%================================================
+\begin{document}
+	
+	\maketitle
+	
+	%------------------------------------------------
+	% Abstract
+	%------------------------------------------------
+	\begin{abstract}
+		Arnold's conjecture is a fundamental problem in symplectic
+		geometry that relates the fixed points of Hamiltonian
+		diffeomorphisms to the topology of the underlying symplectic
+		manifold. More precisely, it predicts that the number of
+		fixed points of a Hamiltonian diffeomorphism is bounded below
+		by the minimal number of critical points of a smooth function
+		on the manifold. When all fixed points are nondegenerate,
+		the conjecture asserts the stronger lower bound given by the
+		minimal number of critical points of a Morse function.
+		
+		The objective of this work is to study Arnold's conjecture
+		and the geometric and topological mechanisms underlying these
+		lower bounds. We begin by introducing the basic notions of
+		symplectic geometry and Hamiltonian dynamics, and then
+		formulate the conjecture in terms of fixed points of
+		Hamiltonian flows. We aim to understand how variational
+		methods, Morse theory, and Floer homology can be used to
+		relate the dynamics of Hamiltonian diffeomorphisms to the
+		topology of the ambient manifold. Particular attention is
+		given to the role of nondegeneracy and to the way in which
+		topological invariants provide lower bounds for the number
+		of fixed points.
+	\end{abstract}
+	
+	\noindent
+	\textbf{Keywords:}
+	Arnold's conjecture, symplectic geometry, Hamiltonian
+	diffeomorphisms, fixed points, Morse theory, Floer homology.
+	
+	\medskip
+	
+	\noindent
+	\textbf{Mathematics Subject Classification (2020):}
+	53D40, 37J10, 58E05.
+	
+	%------------------------------------------------
+	\section{Introduction}
+	%------------------------------------------------
+	
+	The study of fixed points of Hamiltonian diffeomorphisms is
+	one of the central themes in symplectic geometry. Unlike
+	general smooth dynamical systems, Hamiltonian systems possess
+	a rich geometric structure determined by a symplectic form.
+	This structure imposes strong restrictions on their dynamics
+	and creates a natural connection between dynamical properties
+	and the topology of the underlying manifold.
+	
+	Let $(M,\omega)$ be a closed symplectic manifold, where
+	$\omega$ is a smooth, closed, nondegenerate differential
+	$2$-form. A time-dependent Hamiltonian
+	\[
+	H\colon [0,1]\times M\longrightarrow \R
+	\]
+	generates a time-dependent vector field $X_{H_t}$ defined by
+	the convention
+	\[
+	\iota_{X_{H_t}}\omega=-\d H_t,
+	\qquad H_t(x):=H(t,x).
+	\]
+	The corresponding Hamiltonian flow is denoted by
+	$\phi_H^t$, with $\phi_H^0=\id_M$. Its time-one map
+	\[
+	\phi_H:=\phi_H^1
+	\]
+	is a Hamiltonian diffeomorphism of $M$. We are interested
+	in the fixed-point set
+	\[
+	\Fix(\phi_H)
+	:=
+	\{x\in M\mid \phi_H(x)=x\}.
+	\]
+	
+	Arnold's conjecture, formulated by Vladimir Arnold, predicts
+	that the number of fixed points of $\phi_H$ is controlled
+	from below by topological invariants of $M$. In particular,
+	the conjecture suggests that Hamiltonian dynamics cannot
+	be arbitrarily simple: the topology of the manifold forces
+	the existence of a certain number of fixed points.
+	
+	%------------------------------------------------
+	\section{Statement of Arnold's Conjecture}
+	%------------------------------------------------
+	
+	For a smooth function $f\colon M\to\R$, define its critical
+	set by
+	\[
+	\Crit(f)
+	:=
+	\{x\in M\mid \d f(x)=0\}.
+	\]
+	We introduce the minimal number of critical points
+	\[
+	\Crit(M)
+	:=
+	\min_{f\in C^\infty(M,\R)}
+	\#\Crit(f),
+	\]
+	where the minimum is taken over smooth functions with
+	finitely many critical points.
+	
+	Similarly, let
+	\[
+	\CritMorse(M)
+	:=
+	\min\bigl\{
+	\#\Crit(f)\mid
+	f\in C^\infty(M,\R)
+	\text{ is a Morse function}
+	\bigr\}.
+	\]
+	
+	The conjecture can then be stated as follows.
+	
+	\begin{conjecture}[Arnold]
+		\label{conj:arnold}
+		Let $(M,\omega)$ be a closed symplectic manifold, and let
+		$\phi\colon M\to M$ be the time-one map of a
+		time-dependent Hamiltonian flow. Then
+		\[
+		\boxed{
+			\#\Fix(\phi)\geq \Crit(M).
+		}
+		\]
+		If all fixed points of $\phi$ are nondegenerate, then
+		\[
+		\boxed{
+			\#\Fix(\phi)\geq \CritMorse(M).
+		}
+		\]
+	\end{conjecture}
+	
+	Here, a fixed point $x\in\Fix(\phi)$ is called
+	\emph{nondegenerate} if
+	\[
+	\det\bigl(D\phi(x)-I_{T_xM}\bigr)\neq 0,
+	\]
+	where $D\phi(x)\colon T_xM\to T_xM$ is the derivative
+	of $\phi$ at $x$ and $I_{T_xM}$ denotes the identity
+	map on the tangent space.
+	
+	%------------------------------------------------
+	\section{Objective and Strategy}
+	%------------------------------------------------
+	
+	The principal objective of this work is to investigate
+	Arnold's conjecture by exploring the relationship between
+	Hamiltonian dynamics, variational methods, and the topology
+	of closed symplectic manifolds.
+	
+	More specifically, we aim to address the following questions:
+	
+	\begin{enumerate}[label=\textnormal{(\arabic*)}]
+		\item \textbf{Hamiltonian dynamics.}
+		How can the fixed points of a Hamiltonian diffeomorphism
+		be characterized in terms of periodic orbits of the
+		associated Hamiltonian flow?
+		
+		\item \textbf{Morse theory.}
+		Why does the topology of $M$ impose a lower bound on
+		the number of critical points of a smooth function,
+		and how does this motivate the corresponding lower
+		bound for Hamiltonian fixed points?
+		
+		\item \textbf{Variational formulation.}
+		Under which assumptions can periodic Hamiltonian
+		orbits be interpreted as critical points of an action
+		functional on a suitable loop space?
+		
+		\item \textbf{Floer homology.}
+		How can an infinite-dimensional analogue of Morse
+		theory be developed to establish lower bounds for
+		the number of periodic orbits and fixed points?
+		
+		\item \textbf{Nondegeneracy.}
+		What additional information becomes available when
+		all fixed points are nondegenerate, and why is the
+		Morse-theoretic lower bound relevant in this setting?
+	\end{enumerate}
+	
+	Our approach is to develop the necessary background in
+	symplectic geometry, review the relevant ideas from Morse
+	theory, and then examine the role of Hamiltonian action
+	functionals and Floer homology. The precise results that
+	can be established depend on the hypotheses imposed on
+	the symplectic manifold and on the Hamiltonian.
+	
+	%------------------------------------------------
+	\section{Organization of the Work}
+	%------------------------------------------------
+	
+	The work is organized as follows. Section~2 introduces
+	the basic definitions and properties of symplectic
+	manifolds and Hamiltonian flows. Section~3 reviews the
+	Morse-theoretic background and explains the topological
+	lower bounds appearing in Arnold's conjecture. Section~4
+	develops the variational perspective and introduces the
+	Hamiltonian action functional. Section~5 discusses the
+	main ideas of Floer homology and their application to
+	the fixed-point problem. Finally, we summarize the
+	conclusions and indicate possible extensions.
+	
+	%------------------------------------------------
+	% Bibliography
+	%------------------------------------------------
+	\begin{thebibliography}{99}
+		
+		\bibitem{Arnold}
+		V.~I.~Arnold,
+		\emph{Mathematical Methods of Classical Mechanics},
+		2nd ed., Graduate Texts in Mathematics, vol.~60,
+		Springer, New York, 1989.
+		
+		\bibitem{AudinDamian}
+		M.~Audin and M.~Damian,
+		\emph{Morse Theory and Floer Homology},
+		Universitext, Springer, London, 2014.
+		
+		\bibitem{McDuffSalamon}
+		D.~McDuff and D.~Salamon,
+		\emph{Introduction to Symplectic Topology},
+		3rd ed., Oxford University Press, Oxford, 2017.
+		
+		\bibitem{Salamon}
+		D.~Salamon,
+		\emph{Lectures on Floer Homology},
+		in Symplectic Geometry and Topology,
+		IAS/Park City Mathematics Series, vol.~7,
+		American Mathematical Society, 1999.
+		
+	\end{thebibliography}
+	
+\end{document}
